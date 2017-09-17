@@ -6,6 +6,8 @@ In CSS Multi-column Layouts, the content is balanced between columns. There are 
 
 The script finds the first items in every column and applies `break-before: column` to them. If the browser does not support this property (looking at you, Firefox), a `margin-top` fallback is used.
 
+Demo: https://backflip.github.io/freeze-css-columns/test/
+
 ## Install
 
 ```
