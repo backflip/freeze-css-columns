@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    .columns {
+      columns: 2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Freeze CSS Multi-column Layouts</h1>
+  <button type="button">Enable freeze</button>
+  <ul class="columns">
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+    <li>
+      <details>
+        <summary>Item with expandable content</summary>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+      </details>
+    </li>
+    <li>Item</li>
+  </ul>
+  <script src="../dist/es5.js"></script>
+  <script>
+    const toggle = document.querySelector('[type="button"]'),
+      target = document.querySelector('.columns'),
+      columnFreezer = new FreezeCssColumns(target)
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      columnFreezer.update()
+    }, false)
+
+    toggle.addEventListener('click', () => {
+      if (columnFreezer.isEngaged) {
+        columnFreezer.disengage()
+        toggle.innerText = 'Enable freeze'
+      } else {
+        columnFreezer.engage()
+        toggle.innerText = 'Disable freeze'
+      }
+    }, false)
+  </script>
+</body>
+</html>

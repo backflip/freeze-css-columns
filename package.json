@@ -1,0 +1,36 @@
+{
+  "name": "freeze-css-columns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.7.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "open": "0.0.5",
+    "serve": "^6.1.0",
+    "webpack": "^3.6.0"
+  },
+  "scripts": {
+    "test": "open http://localhost:5000/test && serve .",
+    "lint": "eslint --fix \"{,src/}*.js\"",
+    "compile": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "eslintIgnore": [
+    "dist/*"
+  ]
+}
