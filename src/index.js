@@ -56,7 +56,9 @@ class FreezeCssColumns {
   disengage () {
     // Reset styles to allow for proper reflow on resize
     this.children.forEach((child, i) => {
-      child.style = this.initialChildrenStyles[i]
+      Object.keys(this.initialChildrenStyles[i]).forEach((property) => {
+        child.style[property] = this.initialChildrenStyles[i][property]
+      })
     })
 
     this.redraw()

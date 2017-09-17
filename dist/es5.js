@@ -154,7 +154,9 @@ var FreezeCssColumns = function () {
 
       // Reset styles to allow for proper reflow on resize
       this.children.forEach(function (child, i) {
-        child.style = _this2.initialChildrenStyles[i];
+        Object.keys(_this2.initialChildrenStyles[i]).forEach(function (property) {
+          child.style[property] = _this2.initialChildrenStyles[i][property];
+        });
       });
 
       this.redraw();
