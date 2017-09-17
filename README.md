@@ -15,7 +15,7 @@ npm install --save css-freeze-columns
 ## Usage
 
 Require module:
-```
+```bash
 import FreezeCssColumns from 'css-freeze-columns'
 
 # Alternative: Add transpiled script to HTML: <script src="dist/es5.js"></script>
