@@ -12,7 +12,10 @@ class FreezeCssColumns {
 
     // Save children's initial styles to be able to reset them later
     this.initialChildrenStyles = this.children.map((child) => {
-      return child.style
+      return {
+        marginTop: child.style.marginTop,
+        breakBefore: child.style.breakBefore
+      }
     })
   }
 
@@ -36,7 +39,7 @@ class FreezeCssColumns {
         child.style.breakBefore = 'column'
 
         // Add margin-top fallback if break-before is not supported
-        if (!window.getComputedStyle(child).breakBefore) {
+        if (window.getComputedStyle(child).breakBefore !== 'column') {
           child.style.marginTop = this.options.marginTopFallback
         }
 
