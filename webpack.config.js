@@ -1,4 +1,6 @@
 const path = require('path')
+const webpack = require('webpack')
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -6,7 +8,7 @@ module.exports = {
     library: 'FreezeCssColumns',
     libraryTarget: 'window',
     path: path.join(__dirname, '/dist'),
-    filename: 'es5.js'
+    filename: 'es5.min.js'
   },
   module: {
     rules: [
@@ -22,5 +24,9 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+    new UnminifiedWebpackPlugin()
+  ]
 }
