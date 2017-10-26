@@ -34,11 +34,11 @@
       columnFreezer = new FreezeCssColumns(target)
 
     // Handle resize
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function() {
       columnFreezer.update()
     }, false)
 
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', function() {
       if (columnFreezer.isEngaged) {
         columnFreezer.disengage()
         toggle.innerText = 'Enable freeze'
