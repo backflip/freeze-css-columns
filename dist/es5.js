@@ -97,7 +97,11 @@ var FreezeCssColumns = function () {
     });
     this.initialDisplayStyle = this.element.style.display;
 
-    // Save children's initial styles to be able to reset them later
+    // Save initial styles to be able to reset them later
+    this.initialElementStyles = {
+      marginBottom: element.style.marginBottom
+    };
+
     this.initialChildrenStyles = this.children.map(function (child) {
       return {
         marginTop: child.style.marginTop,
@@ -164,7 +168,7 @@ var FreezeCssColumns = function () {
         });
 
         if (elementBottomEdge > childrenBottomEdge) {
-          this.element.style.marginBottom = childrenBottomEdge - elementBottomEdge + 'px';
+          this.element.style.marginBottom = childrenBottomEdge - elementBottomEdge + this.initialElementStyles.marginBottom + 'px';
         }
       }
 
@@ -183,6 +187,10 @@ var FreezeCssColumns = function () {
       var _this2 = this;
 
       // Reset styles to allow for proper reflow on resize
+      Object.keys(this.initialElementStyles).forEach(function (property) {
+        _this2.element.style[property] = _this2.initialElementStyles[property];
+      });
+
       this.children.forEach(function (child, i) {
         Object.keys(_this2.initialChildrenStyles[i]).forEach(function (property) {
           child.style[property] = _this2.initialChildrenStyles[i][property];

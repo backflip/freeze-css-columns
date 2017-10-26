@@ -10,7 +10,11 @@ class FreezeCssColumns {
     this.children = [].slice.call(this.element.childNodes).filter((node) => node.nodeType === 1)
     this.initialDisplayStyle = this.element.style.display
 
-    // Save children's initial styles to be able to reset them later
+    // Save initial styles to be able to reset them later
+    this.initialElementStyles = {
+      marginBottom: element.style.marginBottom
+    }
+
     this.initialChildrenStyles = this.children.map((child) => {
       return {
         marginTop: child.style.marginTop,
@@ -71,7 +75,7 @@ class FreezeCssColumns {
       })
 
       if (elementBottomEdge > childrenBottomEdge) {
-        this.element.style.marginBottom = childrenBottomEdge - elementBottomEdge + 'px'
+        this.element.style.marginBottom = childrenBottomEdge - elementBottomEdge + this.initialElementStyles.marginBottom + 'px'
       }
     }
 
@@ -85,6 +89,10 @@ class FreezeCssColumns {
   // Unfix columns
   disengage () {
     // Reset styles to allow for proper reflow on resize
+    Object.keys(this.initialElementStyles).forEach((property) => {
+      this.element.style[property] = this.initialElementStyles[property]
+    })
+
     this.children.forEach((child, i) => {
       Object.keys(this.initialChildrenStyles[i]).forEach((property) => {
         child.style[property] = this.initialChildrenStyles[i][property]
