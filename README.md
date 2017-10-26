@@ -4,7 +4,7 @@ In CSS Multi-column Layouts, the content is balanced between columns. There are 
 
 ## How it works
 
-The script finds the first items in every column and applies `break-before: column` to them. If the browser does not support this property (looking at you, Firefox), a `margin-top` fallback is used.
+The script finds the first items in every column and applies `break-before: column` to them. If the browser does not support this property (looking at you, Firefox) or does crazy things with it ([looking at you, IE](https://stackoverflow.com/a/23001256)), a `margin-top` fallback is used. In IE, the script needs to compensate this `margin-top` by adding a negative `margin-bottom` to the element.
 
 Demo: https://backflip.github.io/freeze-css-columns/test/
 

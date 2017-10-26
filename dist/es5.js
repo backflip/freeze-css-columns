@@ -115,6 +115,7 @@ var FreezeCssColumns = function () {
       var _this = this;
 
       var currentOffset = null;
+      var ieFix = false;
 
       // Reset styles to allow for proper reflow on resize
       this.disengage();
@@ -131,6 +132,14 @@ var FreezeCssColumns = function () {
           // Add break-before
           child.style.breakBefore = 'column';
 
+          // Check if the column was moved to the right by accident
+          // IE seems to have a different implementation here, see https://stackoverflow.com/a/23001256
+          // Needs additional fixes, see below
+          if (child.offsetLeft > childOffset) {
+            ieFix = true;
+            child.style.removeProperty('break-before');
+          }
+
           // Add margin-top fallback if break-before is not supported
           if (window.getComputedStyle(child).breakBefore !== 'column') {
             child.style.marginTop = _this.options.marginTopFallback;
@@ -140,6 +149,24 @@ var FreezeCssColumns = function () {
           currentOffset = childOffset;
         }
       });
+
+      // Compensate for margin-top in IE (behaving differently than Firefox)
+      // This cannot be done by simply comparing the element's height before and after since IE picks the wrong items to fix, moving them between columns
+      // This is apparently due to offsetLeft returning incorrect values
+      if (ieFix) {
+        var elementBottomEdge = this.element.offsetTop + this.element.offsetHeight;
+        var childrenBottomEdge = 0;
+
+        this.children.forEach(function (child) {
+          var childBottomEdge = child.offsetTop + child.offsetHeight;
+
+          childrenBottomEdge = Math.max(childrenBottomEdge, childBottomEdge);
+        });
+
+        if (elementBottomEdge > childrenBottomEdge) {
+          this.element.style.marginBottom = childrenBottomEdge - elementBottomEdge + 'px';
+        }
+      }
 
       // Force column redraw in order for "break-before" to take effect
       this.redraw();
