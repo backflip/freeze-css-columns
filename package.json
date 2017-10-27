@@ -1,6 +1,6 @@
 {
   "name": "freeze-css-columns",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Freeze CSS Multi-column Layouts",
   "main": "src/index.js",
   "dependencies": {},
